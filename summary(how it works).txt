@@ -1,0 +1,17 @@
+Overall summary that how firewall filters traffic
+
+Think of a firewall like a security guard for your network. Every time a data “visitor” (packet) wants to come in or go out, the guard checks:
+
+1.Who it is – Where is it coming from and where is it going?
+2.What it wants – Which door (port) or type of communication it’s trying to use.
+3.The rulebook – Does it match the allowed list or the blocked list?
+
+Then the firewall decides:
+
+Let it in if it’s safe.
+Stop it if it’s suspicious or not allowed.
+Make a note for monitoring or later review.
+
+Some firewalls are simple and check packets one by one (like a quick ID check), while others are smarter and remember past visitors, letting only those who have a valid “ticket” continue.
+
+In short: a firewall keeps your network safe by deciding who can come in or go out.
