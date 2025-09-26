@@ -21,7 +21,8 @@ The task focuses on blocking insecure Telnet traffic (port 23), verifying the ru
 - **commands.txt** → List of commands executed  
 - **findings.md** → Short report with observations & conclusion  
 - **evidence/** → Screenshots from each step  
-- **exports/** → Firewall backup files (`.wfw`, `.xml`)  
+- **exports/** → Firewall backup files (`.wfw`, `.xml`)
+- **Summary/** → summary that how firewall filters traffic
 
 ---
 
@@ -29,3 +30,4 @@ The task focuses on blocking insecure Telnet traffic (port 23), verifying the ru
 - Windows Firewall can be managed via both **PowerShell (`Get-NetFirewallRule`, `New-NetFirewallRule`)** and **`netsh`**.  
 - Always **export/backup** firewall settings before changes.  
 - Telnet (port 23) is blocked because it is insecure (transmits data unencrypted).  
+
