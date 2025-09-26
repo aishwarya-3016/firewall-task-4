@@ -1,0 +1,56 @@
+## commands to run
+
+Step 1 — List existing firewall rules
+
+	Before making changes, always check the current firewall rules.
+	👉 This gives a baseline and ensures you don’t duplicate or conflict with existing 	rules.
+
+Get-NetFirewallRule | Format-Table DisplayName,Enabled,Direction,Action
+
+
+Step 2 — Export current firewall configuration (backup)
+
+	Always backup before making changes.
+	👉 If something goes wrong, you can restore from this .wfw file.
+
+netsh advfirewall export "C:\Users\Public\firewall-export.wfw"
+
+
+Step 3 — Export firewall rules in readable XML format
+
+	The .wfw backup is binary, but XML makes it human-readable.
+	👉 Good for documentation and evidence submission.
+
+Get-NetFirewallRule | Export-Clixml -Path "C:\Users\Public\firewall-rules.xml"
+
+
+Step 4 — Add inbound block rule for Telnet (port 23)
+
+	Telnet is insecure because it sends data in plain text.
+	👉 We block port 23/TCP inbound to prevent attackers from exploiting it.
+
+New-NetFirewallRule -DisplayName "Block-Telnet-Inbound" -Direction Inbound -LocalPort 23 -Protocol TCP -Action Block -Profile Any
+
+
+Step 5 — Verify the new rule
+
+	After creating a rule, confirm it was applied.
+	👉 This shows details like direction, action, and port.
+
+Get-NetFirewallRule -DisplayName "Block-Telnet-Inbound" | Format-List *
+
+
+Step 6 — Test if port 23 is blocked
+
+	We test connectivity to port 23 on localhost.
+	👉 Expected result: TcpTestSucceeded : False → means the firewall is blocking it 	correctly.
+
+Test-NetConnection -ComputerName 127.0.0.1 -Port 23
+
+
+Step 7 — Remove the Telnet block rule
+
+	Once the test is complete, remove the custom rule.
+	👉 Keeps the system clean and prevents accidental issues later.
+
+Remove-NetFirewallRule -DisplayName "Block-Telnet-Inbound"
